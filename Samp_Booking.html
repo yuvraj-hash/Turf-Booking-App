@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="turfBookingApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Turf Booking</title>
+    
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Custom Styling -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+         /* Navbar customization */
+        .navbar-custom {
+            background-color: #2c3e50;
+            border: none;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043; /* Added bottom border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            transform: scale(1.1);
+        }
+
+
+     .navbar-custom .navbar-nav > li > a {
+            color: #fff; /* White color for navbar links */
+            font-size: 16px;
+        }
+
+        .navbar-custom .navbar-nav > li > a:hover {
+            background-color: #004d40; /* Light teal on hover */
+            color: #fff;
+        }
+
+        /* Highlight the active button */
+        .navbar-custom .navbar-nav > .active > a {
+            background-color: #ff7043; /* Coral for active button */
+            color: #000; /* Black text for active button */
+        }
+
+        /* Jumbotron Customization */
+        .jumbotron {
+            background-color: #fffae6;
+            padding: 60px 20px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 0;
+        }
+
+        .jumbotron h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .jumbotron p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Main Container Styling */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 600px;
+        }
+
+        .form-group label {
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        input[type="text"], input[type="tel"], input[type="date"], input[type="time"], select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus, input[type="tel"]:focus, input[type="date"]:focus, input[type="time"]:focus, select:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 10px rgba(41, 128, 185, 0.5);
+        }
+
+        /* Button Styling */
+        .book-now-btn {
+            background-color: #27ae60;
+            color: white;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            width: 100%;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .book-now-btn:hover {
+            background-color: #2ecc71;
+            transform: scale(1.05);
+        }
+
+        /* Availability Button */
+        .availability-btn {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 5px;
+            text-align: center;
+            display: inline-block;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .availability-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Go Back Button */
+        .go-back {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .go-back:hover {
+            background-color: #2980b9;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="Aboutt2.html">About Us</a></li>
+            <li class="active"><a href="#">Book Turf/Court</a></li>
+            <li><a href="search-turf.html">Search Turf/Court</a></li>
+            <li><a href="Events2.html">Events & Tournaments</a></li>
+            <li><a href="review.html">Reviews & Ratings</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="dashboard_login.html">Admin Dashboard</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Go Back Button -->
+<button class="go-back" onclick="window.history.back();">Go Back</button>
+
+<!-- Jumbotron -->
+<div class="jumbotron">
+    <h1>Let The World Play...</h1>
+    <p>Your ultimate destination for seamless sports experiences! Whether you're a passionate athlete, a weekend warrior, or just looking for some fun with friends, we've got you covered.</p>
+    <a href="Offers.html" class="btn">Offers & Discounts</a>
+</div>
+
+<!-- Main Booking Container -->
+<div class="container">
+    <a href="search-turf.html" class="availability-btn">Check Availability</a> 
+    <h2>Book Available Turf/Court</h2>
+
+    <form id="search-form">
+        <!-- Name Field -->
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" placeholder="Enter your Name" required>
+        </div>
+
+        <!-- Phone Number Field -->
+        <div class="form-group">
+            <label for="cus-phone">Phone Number:</label>
+            <input type="tel" id="cus-phone" name="cus-phone" placeholder="Enter 10-digit phone number" required pattern="[0-9]{10}">
+        </div>
+
+        <!-- Location Field -->
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <select id="location" required>
+                <option value="" disabled selected>Select Location</option>
+                <option value="chennai">Chennai</option>
+                <option value="hyderabad">Hyderabad</option>
+            </select>
+        </div>
+
+        <!-- Turf/Court Type -->
+        <div class="form-group">
+            <label for="turf-type">Turf/Court:</label>
+            <select id="turf-type" required>
+                <option value="" disabled selected>Select Turf/Court</option>
+                <option value="cricket">Cricket</option>
+                <option value="football">Football</option>
+                <option value="basketball">Basketball</option>
+                <option value="badminton">Badminton</option>
+                <option value="tennis">Tennis</option>
+            </select>
+        </div>
+
+        <!-- Date Field -->
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+
+        <!-- Time Slot -->
+        <div class="form-group">
+            <label for="time-slot">Time Slot:</label>
+            <select id="time-slot" required>
+                <option value="" disabled selected>Select Time Slot</option>
+                <option value="morning1">Morning (8 AM - 10 AM)</option>
+                <option value="morning2">Morning (10 AM - 12 PM)</option>
+                <option value="afternoon1">Afternoon (2 PM - 4 PM)</option>
+                <option value="afternoon2">Afternoon (4 PM - 6 PM)</option>
+                <option value="evening1">Evening (6 PM - 8 PM)</option>
+            </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" class="book-now-btn" id="book-now-btn">Book Now</button>
+    </form>
+</div>
+
+<!-- Footer -->
+<div class="footer">
+    <p>&copy; 2024 Arena Hub | Follow us on 
+        <a href="https://www.facebook.com/TheArenaHub" target="_blank">Facebook</a>, 
+        <a href="https://twitter.com/ArenaHubSports" target="_blank">Twitter</a>, 
+        <a href="https://www.instagram.com/PlayArenaHub" target="_blank">Instagram</a>
+    </p>
+    <p>Made with ♥ by Arena Hub</p>
+</div>
+  
+
+<!-- AngularJS Library -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+    var app = angular.module('turfBookingApp', []);
+    
+    app.controller('BookingController', function($scope) {
+        // Booking details array
+        $scope.bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+        // Function to handle booking submission
+        $scope.submitBooking = function() {
+            var booking = {
+                name: $scope.name,
+                phone: $scope.phone,
+                location: $scope.location,
+                turfType: $scope.turfType,
+                date: $scope.date,
+                timeSlot: $scope.timeSlot
+            };
+
+            // Add booking to the array and save to local storage
+            $scope.bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify($scope.bookings));
+
+            // Clear the form fields
+            $scope.name = '';
+            $scope.phone = '';
+            $scope.location = '';
+            $scope.turfType = '';
+            $scope.date = '';
+            $scope.timeSlot = '';
+
+            alert("Booking Successful!");
+        };
+    });
+
+    // Button click event
+    document.getElementById('book-now-btn').onclick = function() {
+        var name = document.getElementById('name').value;
+        var phone = document.getElementById('cus-phone').value;
+        var location = document.getElementById('location').value;
+        var turfType = document.getElementById('turf-type').value;
+        var date = document.getElementById('date').value;
+        var timeSlot = document.getElementById('time-slot').value;
+
+        // Validate input
+        if (name && phone && location && turfType && date && timeSlot) {
+            var booking = {
+                name: name,
+                phone: phone,
+                location: location,
+                turfType: turfType,
+                date: date,
+                timeSlot: timeSlot
+            };
+
+            // Save booking to local storage
+            var bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+
+            // Clear the form fields
+            document.getElementById('search-form').reset();
+            alert("Booking Successful!");
+        } else {
+            alert("Please fill in all fields.");
+        }
+    };
+</script>
+
+</body>
+</html>

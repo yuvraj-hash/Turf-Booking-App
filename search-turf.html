@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Turf/Court Availability</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+    /* Navbar customization */
+        .navbar-custom {
+            background-color: #2c3e50;
+            border: none;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043; /* Added bottom border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            transform: scale(1.1);
+        }
+
+
+     .navbar-custom .navbar-nav > li > a {
+            color: #fff; /* White color for navbar links */
+            font-size: 16px;
+        }
+
+        .navbar-custom .navbar-nav > li > a:hover {
+            background-color: #004d40; /* Light teal on hover */
+            color: #fff;
+        }
+
+        /* Highlight the active button */
+        .navbar-custom .navbar-nav > .active > a {
+            background-color: #ff7043; /* Coral for active button */
+            color: #000; /* Black text for active button */
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .container h2 {
+            margin-bottom: 10px;
+            color: #007bff;
+            text-align: center;
+        }
+
+        .availability-result {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 5px;
+            display: none; /* Initially hidden */
+        }
+
+        .available {
+            color: green;
+            background-color: #d4edda;
+        }
+
+        .not-available {
+            color: red;
+            background-color: #f8d7da;
+        }
+
+        .container label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .container select,
+        .container input,
+        .container button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .container button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .container button:hover {
+            background-color: #0056b3;
+        }
+
+        .go-back {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .go-back:hover {
+            background-color: #e9ecef;
+            color: #0056b3;
+        }
+
+        .admin-button {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            z-index: 1001;
+            text-decoration: none;
+        }
+
+        .admin-button:hover {
+            background-color: #0056b3;
+        }
+
+         .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="Aboutt2.html">About Us</a></li>
+            <li><a href="Samp_Booking.html">Book Turf/Court</a></li>
+            <li class="active"><a href="search-turf.html">Search Turf/Court</a></li>
+            <li><a href="Events2.html">Events & Tournaments</a></li>
+            <li><a href="review.html">Reviews & Ratings</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="dashboard_login.html">Admin Dashboard</a></li>
+        </ul>
+    </div>
+</nav>
+
+<a href="Admin.html" class="admin-button">Admin</a>
+
+<div class="container">
+    <h2>Search Turf/Court Availability</h2>
+    
+    <div id="availability-result" class="availability-result"></div>
+
+    <form id="search-form">
+        <label for="location">Location:</label>
+        <select id="location" required>
+            <option value="" disabled selected>Select Location</option>
+            <option value="chennai">Chennai</option>
+            <option value="hyderabad">Hyderabad</option>
+        </select>
+
+        <label for="turf-type">Turf/Court:</label>
+        <select id="turf-type" required>
+            <option value="" disabled selected>Select Turf/Court</option>
+            <option value="cricket">Cricket</option>
+            <option value="football">Football</option>
+            <option value="basketball">Basketball</option>
+            <option value="badminton">Badminton</option>
+            <option value="tennis">Tennis</option>
+        </select>
+
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="date" required>
+
+        <label for="time-slot">Time Slot:</label>
+        <select id="time-slot" required>
+            <option value="" disabled selected>Select Time Slot</option>
+            <option value="morning1">Morning (8 AM - 10 AM)</option>
+            <option value="morning2">Morning (10 AM - 12 PM)</option>
+            <option value="afternoon1">Afternoon (2 PM - 4 PM)</option>
+            <option value="afternoon2">Afternoon (4 PM - 6 PM)</option>
+            <option value="evening">Evening (6 PM - 9 PM)</option>
+        </select>
+
+        <button type="button" onclick="checkAvailability()">Check Availability</button>
+        <a href="search-turf.html" class="go-back">Go Back</a>
+    </form>
+</div>
+
+  <div class="footer">
+        <p>Made with ♥ by Arena Hub</p>
+    </div>
+
+<script>
+    function checkAvailability() {
+        const location = document.getElementById('location').value;
+        const turfType = document.getElementById('turf-type').value;
+        const date = document.getElementById('date').value;
+        const timeSlot = document.getElementById('time-slot').value;
+
+        if (location && turfType && date && timeSlot) {
+            const key = `${location}_${turfType}_${date}_${timeSlot}`;
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+            
+            // Check if the booking exists in the bookings array
+            const isBooked = bookings.some(booking => 
+                booking.location === location &&
+                booking.turfType === turfType &&
+                booking.date === date &&
+                booking.timeSlot === timeSlot
+            );
+
+            const resultDiv = document.getElementById('availability-result');
+            resultDiv.style.display = 'block'; // Show the result div
+
+            // Check if the slot is booked
+            if (isBooked) {
+                resultDiv.textContent = 'Availability: No';
+                resultDiv.className = 'availability-result not-available'; // Change class for styling
+            } else {
+                resultDiv.textContent = 'Availability: Yes';
+                resultDiv.className = 'availability-result available'; // Change class for styling
+            }
+        } else {
+            alert('Please fill all fields.');
+        }
+    }
+</script>
+
+</body>
+</html>

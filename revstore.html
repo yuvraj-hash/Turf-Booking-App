@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="turfBookingApp">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews - Arena Hub</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-custom {
+            background-color: #2c3e50;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .navbar-custom .nav-link {
+            color: #fff;
+            font-size: 16px;
+            margin: 0 10px; /* Add some margin between links */
+        }
+
+        .navbar-custom .nav-link:hover {
+            background-color: #000; /* Black hover for inactive modules */
+            color: #fff;
+            border-radius: 5px; /* Add rounded corners to hover effect */
+        }
+
+        .navbar-custom .active {
+            background-color: #ff7043; /* Active module color */
+            border-radius: 5px; /* Add rounded corners to active item */
+        }
+
+        .navbar-custom .nav-item.active .nav-link:hover {
+            background-color: #ff7043; /* Keep active module color on hover */
+        }
+
+        /* Log Out Button Styling */
+        .logout-btn {
+            background-color: #ff3333;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 900px;
+            margin: 20px auto;
+        }
+
+        .table {
+            margin-top: 20px;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn-delete:hover {
+            background-color: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="2Booking_dataaa.html">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store_events.html">Events</a>
+                    </li>
+                    <li class="nav-item active"> <!-- Set Reviews as active -->
+                        <a class="nav-link" href="#">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="message_store.html">Contact Us</a>
+                    </li>
+                </ul>
+                <button class="logout-btn" onclick="logout()">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Reviews</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Rating</th>
+                    <th>Review</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="reviews-table-body">
+                <!-- Reviews will be populated here from local storage -->
+            </tbody>
+        </table>
+    </div>
+
+  <div class="footer">
+        <p>Made with ♥ by Arena Hub</p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        function logout() {
+            // Redirect to the login page
+            window.location.href = 'dashboard_login.html';
+
+            // Disable back navigation
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.go(1);
+            };
+        }
+
+        $(document).ready(function () {
+            // Function to fetch reviews from local storage and display them
+            function loadReviews() {
+                const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                const reviewsTableBody = $('#reviews-table-body');
+                reviewsTableBody.empty(); // Clear existing reviews
+
+                reviews.forEach((review, index) => {
+                    reviewsTableBody.append(`
+                        <tr>
+                            <td>${review.name}</td>
+                            <td class="rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</td>
+                            <td>${review.review}</td>
+                            <td>
+                                <button class="btn-delete" data-index="${index}">Delete</button>
+                            </td>
+                        </tr>
+                    `);
+                });
+            }
+
+            // Load reviews when the page loads
+            loadReviews();
+
+            // Function to delete review from local storage
+            $(document).on('click', '.btn-delete', function () {
+                const index = $(this).data('index');
+                let reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+                reviews.splice(index, 1); // Remove the review at the specified index
+                localStorage.setItem('reviews', JSON.stringify(reviews)); // Update local storage
+                loadReviews(); // Reload reviews
+            });
+        });
+    </script>
+
+</body>
+
+</html>

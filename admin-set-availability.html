@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Set Availability</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            position: relative;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-width: 400px;
+            margin-right: 20px;
+        }
+        .container h2 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .form-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            flex-basis: 30%;
+            margin-right: 10px;
+        }
+        .form-group input,
+        .form-group select {
+            flex-basis: 65%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .container button:hover {
+            background-color: #0056b3;
+        }
+        .go-back {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #f8f9fa;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+            margin-top: 10px;
+            display: block;
+            text-align: center;
+        }
+        .go-back:hover {
+            background-color: #e9ecef;
+            color: #0056b3;
+        }
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 10px 15px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+        .availability-details {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 50%;
+            max-width: 500px;
+            height: 400px;
+            overflow-y: auto;
+        }
+        .availability-details h3 {
+            margin-top: 0;
+        }
+        .availability-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .edit-button,
+        .delete-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .edit-button:hover {
+            background-color: #0056b3;
+        }
+        .delete-button {
+            background-color: #dc3545;
+        }
+        .delete-button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <button class="logout-button" onclick="logout()">Log Out</button>
+    
+    <div class="container">
+        <h2>Admin: Manual Turf/Court Booking</h2>
+        <form id="admin-form" onsubmit="return false;">
+            <div class="form-group">
+                <label for="cus-name">Name:</label>
+                <input type="text" id="cus-name" name="cus-name" placeholder="Customer Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="cus-phone">Phone:</label>
+                <input type="tel" id="cus-phone" name="cus-phone" placeholder="Phone Number" required pattern="[0-9]{10}">
+            </div>
+
+            <div class="form-group">
+                <label for="admin-location">Location:</label>
+                <select id="admin-location" required>
+                    <option value="" disabled selected>Select Location</option>
+                    <option value="chennai">Chennai</option>
+                    <option value="hyderabad">Hyderabad</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="admin-turf-type">Turf/Court:</label>
+                <select id="admin-turf-type" required>
+                    <option value="" disabled selected>Select Turf/Court</option>
+                    <option value="cricket">Cricket</option>
+                    <option value="football">Football</option>
+                    <option value="basketball">Basketball</option>
+                    <option value="badminton">Badminton</option>
+                    <option value="tennis">Tennis</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="admin-date">Date:</label>
+                <input type="date" id="admin-date" name="admin-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="admin-time-slot">Time Slot:</label>
+                <select id="admin-time-slot" required>
+                    <option value="" disabled selected>Select Time Slot</option>
+                    <option value="morning1">Morning (8 AM - 10 AM)</option>
+                    <option value="morning2">Morning (10 AM - 12 PM)</option>
+                    <option value="afternoon1">Afternoon (2 PM - 4 PM)</option>
+                    <option value="afternoon2">Afternoon (4 PM - 6 PM)</option>
+                    <option value="evening">Evening (6 PM - 9 PM)</option>
+                </select>
+            </div>
+
+            <button type="button" onclick="bookedDetails()">Book Now</button>
+        </form>
+
+        <a href="search-turf.html" class="go-back">Go Back</a>
+    </div>
+
+    <div class="availability-details">
+        <h3>Booked Details</h3>
+        <div id="booked-list"></div>
+    </div>
+</div>
+
+<script>
+     function logout() {
+         localStorage.removeItem('adminLoggedIn');
+         window.location.replace("Admin.html");
+}
+
+
+    function bookedDetails() {
+        const name = document.getElementById('cus-name').value;
+        const phone = document.getElementById('cus-phone').value;
+        const location = document.getElementById('admin-location').value;
+        const turfType = document.getElementById('admin-turf-type').value;
+        const date = document.getElementById('admin-date').value;
+        const timeSlot = document.getElementById('admin-time-slot').value;
+
+        let errors = [];
+
+        // Validate Name
+        if (!name) {
+            errors.push("Invalid Name");
+        }
+
+        // Validate Phone
+        if (phone.length !== 10) {
+            errors.push("Invalid Phone Number");
+        }
+
+        // Validate Location
+        if (!location) {
+            errors.push("Invalid Location");
+        }
+
+        // Validate Turf Type
+        if (!turfType) {
+            errors.push("Invalid Turf Type");
+        }
+
+        // Validate Date
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0); // Set time to midnight to compare dates only
+
+        if (!date || selectedDate < today) {
+            errors.push("Date must be today or in the future");
+        }
+
+        // Validate Time Slot
+        if (!timeSlot) {
+            errors.push("Invalid Time Slot");
+        }
+
+        if (errors.length > 0) {
+            alert(errors.join(", "));
+            return; // Stop execution if there are errors
+        }
+
+        const booking = {
+            name,
+            phone,
+            location,
+            turfType,
+            date,
+            timeSlot,
+        };
+
+        // Retrieve existing bookings from local storage
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+        // Check if the same date and time slot are already booked
+        const isAlreadyBooked = bookings.some(b => b.date === date && b.timeSlot === timeSlot);
+
+        if (isAlreadyBooked) {
+            alert('This date and time slot are already booked. Please choose a different time or date.');
+            return;
+        }
+
+        // If not already booked, proceed with booking
+        bookings.push(booking);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+
+        displayBookedDetails();
+        document.getElementById('admin-form').reset();
+    }
+
+    function displayBookedDetails() {
+        const bookedList = document.getElementById('booked-list');
+        bookedList.innerHTML = '';
+        const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+        bookings.forEach((booking, index) => {
+            bookedList.innerHTML += `
+                <div class="availability-item">
+                    <p>${booking.name} - ${booking.phone} - ${booking.location} - ${booking.turfType} - ${booking.date} - ${booking.timeSlot}</p>
+                    <button class="edit-button" onclick="editBooking(${index})">Edit</button>
+                    <button class="delete-button" onclick="deleteBooking(${index})">Delete</button>
+                </div>
+            `;
+        });
+    }
+
+    function editBooking(index) {
+        const bookings = JSON.parse(localStorage.getItem('bookings'));
+        const booking = bookings[index];
+
+        document.getElementById('cus-name').value = booking.name;
+        document.getElementById('cus-phone').value = booking.phone;
+        document.getElementById('admin-location').value = booking.location;
+        document.getElementById('admin-turf-type').value = booking.turfType;
+        document.getElementById('admin-date').value = booking.date;
+        document.getElementById('admin-time-slot').value = booking.timeSlot;
+
+        // Remove the booking being edited
+        deleteBooking(index);
+    }
+
+    function deleteBooking(index) {
+        const bookings = JSON.parse(localStorage.getItem('bookings'));
+        bookings.splice(index, 1);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+        displayBookedDetails();
+    }
+
+    // Display booked details on page load
+    window.onload = displayBookedDetails;
+</script>
+
+
+</body>
+</html>

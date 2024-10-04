@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="turfBookingApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Online Turf Booking</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+         /* Navbar customization */
+        .navbar-custom {
+            background-color: #2c3e50;
+            border: none;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043; /* Added bottom border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            transform: scale(1.1);
+        }
+
+
+     .navbar-custom .navbar-nav > li > a {
+            color: #fff; /* White color for navbar links */
+            font-size: 16px;
+        }
+
+        .navbar-custom .navbar-nav > li > a:hover {
+            background-color: #004d40; /* Light teal on hover */
+            color: #fff;
+        }
+
+        /* Highlight the active button */
+        .navbar-custom .navbar-nav > .active > a {
+            background-color: #ff7043; /* Coral for active button */
+            color: #000; /* Black text for active button */
+        }
+
+        .jumbotron {
+            background-color: #e8f5e9; /* Light green background */
+            color: #333;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .jumbotron h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .jumbotron p {
+            font-size: 18px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            max-width: 1000px;
+        }
+
+        .container h2 {
+            font-size: 28px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container p {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .bulletin-points {
+            background-color: #f1f8e9; /* Very light green */
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 18px; /* Increased font size */
+        }
+
+        .bulletin-points ul {
+            list-style-type: disc;
+            margin-left: 20px;
+        }
+
+        .bulletin-points ul li {
+            font-size: 18px; /* Increased font size for bullet points */
+            color: #555;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+             .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="Aboutt2.html">About Us</a></li>
+            <li><a href="Samp_Booking.html">Book Turf/Court</a></li>
+            <li><a href="search-turf.html">Search Turf/Court</a></li>
+            <li><a href="Events2.html">Events & Tournaments</a></li>
+            <li><a href="review.html">Reviews & Ratings</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="dashboard_login.html">Admin Dashboard</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <h1>Welcome to Arena Hub!</h1>
+    <p>Your ultimate destination for seamless sports experiences!</p>
+    <p>We are committed to providing exceptional facilities for athletes and sports enthusiasts alike.</p>
+</div>
+
+<div class="container">
+    <h2>Why Choose Us?</h2>
+    <div class="bulletin-points">
+        <ul>
+            <li>Multiple locations: Chennai and Hyderabad.</li>
+            <li>Convenient timings: Monday to Sunday, 8 AM to 9 PM.</li>
+            <li>Affordable pricing: Just 100 rupees per person for a maximum of 2 hours.</li>
+            <li>High-quality surfaces: All-natural grass turf and well-maintained courts.</li>
+            <li>Comprehensive amenities: Changing rooms, restrooms, showers, parking, drinking water, and seating for spectators.</li>
+        </ul>
+    </div>
+
+    <h2>Our Services</h2>
+    <p>We provide hassle-free booking services for your convenience. From online reservations to secure payment options, we ensure a smooth and enjoyable booking experience.</p>
+    <a href="Samp_Booking.html" class="btn">Book Turf</a>
+</div>
+
+  <div class="footer">
+        <p>Made with ♥ by Arena Hub</p>
+    </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
+<script src="app.js"></script>
+
+</body>
+</html>

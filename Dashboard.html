@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Arena Hub</title>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+    <!-- Custom Styling -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Customization */
+        .navbar-custom {
+            background-color: #2c3e50;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .navbar-custom .navbar-nav>li>a {
+            color: #fff;
+            font-size: 16px;
+        }
+
+        .navbar-custom .navbar-nav>li>a:hover {
+            background-color: #004d40;
+            color: #fff;
+        }
+
+        .navbar-custom .navbar-nav>.active>a {
+            background-color: #ff7043;
+            color: #000;
+        }
+
+        /* Log Out Button Styling */
+        .logout-btn {
+            background-color: #ff3333;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc0000;
+        }
+
+        /* Main Container Styling */
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .dashboard-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background-color: #2ecc71;
+            padding: 20px;
+            color: white;
+            border-radius: 5px;
+            text-align: center;
+            width: 23%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card h3 {
+            font-size: 30px;
+            margin: 0;
+        }
+
+        .stat-card p {
+            font-size: 16px;
+            margin: 5px 0 0;
+        }
+
+        .btn {
+            background-color: #3498db;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+.event-form {
+    max-width: 450px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+}
+
+.event-form h2 {
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.event-form .form-group {
+    margin-bottom: 15px;
+}
+
+.event-form label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.event-form .form-control {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s;
+}
+
+.event-form .form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #3498db;
+    color: white;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+
+
+
+        /* Table Styling */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table thead {
+            background: linear-gradient(90deg, #3498db, #2980b9);
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table th {
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: left;
+            border-bottom: 2px solid #ccc;
+        }
+
+        table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ccc;
+        }
+
+        table tbody tr:hover {
+            background-color: #eafaf1;
+        }
+
+        .action-btn {
+            background-color: #e74c3c;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            margin-right: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background-color: #c0392b;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #2c3e50;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-custom">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Arena Hub</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Dashboard</a></li>
+                <li><a href="2Booking_dataaa.html">Bookings</a></li>
+                <li><a href="store_events.html">Events</a></li>
+                <li><a href="revstore.html">Reviews</a></li>
+                <li><a href="message_store.html">Contact Us</a></li>
+            </ul>
+            <!-- Log Out Button placed on the right side -->
+            <ul class="nav navbar-nav navbar-right">
+                <li><button class="logout-btn" onclick="logout()">Log Out</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+
+        <!-- Dashboard Stats Section -->
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>25</h3>
+                <p>Total Bookings Today</p>
+            </div>
+            <div class="stat-card">
+                <h3>7</h3>
+                <p>Turf Bookings Today</p>
+            </div>
+            <div class="stat-card">
+                <h3>5</h3>
+                <p>Court Bookings Today</p>
+            </div>
+            <div class="stat-card">
+                <h3>45</h3>
+                <p>Total Events Registered</p>
+            </div>
+        </div>
+
+       <!-- Booking Overview Chart -->
+        <div class="chart-container">
+            <canvas id="bookingChart"></canvas>
+        </div>
+        </div>
+
+<!-- Event Creation Form -->
+<div class="event-form">
+    <h2>Create New Event</h2>
+    <form id="createEventForm" onsubmit="createEvent(event)">
+        <div class="form-group">
+            <label for="eventName">Event Name</label>
+            <input type="text" class="form-control" id="eventName" required>
+        </div>
+        <div class="form-group">
+            <label for="eventDate">Date</label>
+            <input type="date" class="form-control" id="eventDate" required>
+        </div>
+        <div class="form-group">
+            <label for="eventTimeFrom">Time From</label>
+            <input type="time" class="form-control" id="eventTimeFrom" required>
+        </div>
+        <div class="form-group">
+            <label for="eventTimeTo">Time To</label>
+            <input type="time" class="form-control" id="eventTimeTo" required>
+        </div>
+        <div class="form-group">
+            <label for="eventLocation">Location</label>
+            <input type="text" class="form-control" id="eventLocation" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create Event</button>
+    </form>
+</div>
+
+
+
+        <!-- Upcoming Events Section -->
+        <div class="container">
+        <h2>Upcoming Events</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Event ID</th>
+                    <th>Event Name</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="eventTableBody">
+                <!-- Example Rows -->
+                <tr>
+                    <td>#E101</td>
+                    <td>Football Tournament</td>
+                    <td>2024-10-10</td>
+                    <td>10 AM - 2 PM</td>
+                    <td>Stadium A</td>
+                    <td>Scheduled</td>
+                    <td>
+                        <button class="action-btn" onclick="deleteEvent(this)">Cancel</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#E102</td>
+                    <td>Cricket Match</td>
+                    <td>2024-10-12</td>
+                    <td>3 PM - 6 PM</td>
+                    <td>Stadium B</td>
+                    <td>Scheduled</td>
+                    <td>
+                        <button class="action-btn" onclick="deleteEvent(this)">Cancel</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>#E103</td>
+                    <td>Tennis Championship</td>
+                    <td>2024-10-15</td>
+                    <td>1 PM - 5 PM</td>
+                    <td>Stadium C</td>
+                    <td>Scheduled</td>
+                    <td>
+                        <button class="action-btn" onclick="deleteEvent(this)">Cancel</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</div>
+</div>
+
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Arena Hub. All Rights Reserved.</p>
+    </div>
+
+    <!-- JS for Bootstrap -->
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <!-- Logout Function -->
+    <script>
+        function logout() {
+            // Redirect to the login page
+            window.location.href = 'dashboard_login.html';
+
+         localStorage.removeItem('adminLoggedIn');
+         window.location.replace("dashboard_login.html");
+}
+
+        // Get current month and year
+        const currentMonth = new Date().getMonth(); // 0-11 for Jan-Dec
+        const currentYear = new Date().getFullYear();
+
+        // Initialize data structure for bookings
+        const dailyBookings = new Array(7).fill(0); // Sunday to Saturday
+
+        // Function to fetch booking data and update the chart
+        function fetchBookingData() {
+            // Simulating fetching booking data (you'll need to replace this with actual fetching logic)
+            const bookings = [
+                { date: '2024-10-01', count: 3 },
+                { date: '2024-10-02', count: 5 },
+                { date: '2024-10-03', count: 2 },
+                { date: '2024-10-04', count: 8 },
+                { date: '2024-10-05', count: 6 },
+                { date: '2024-10-06', count: 4 },
+                { date: '2024-10-07', count: 7 },
+                // Continue for each day of the month
+            ];
+
+            // Calculate daily bookings for the current month
+            bookings.forEach(booking => {
+                const bookingDate = new Date(booking.date);
+                if (bookingDate.getMonth() === currentMonth && bookingDate.getFullYear() === currentYear) {
+                    const day = bookingDate.getDay(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+                    dailyBookings[day] += booking.count;
+                }
+            });
+
+            updateChart();
+        }
+
+        // Update the chart with daily bookings data
+        function updateChart() {
+            const ctx = document.getElementById('bookingChart').getContext('2d');
+            const bookingChart = new Chart(ctx, {
+                type: 'bar', // Change to bar chart
+                data: {
+                    labels: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+                    datasets: [{
+                        label: 'Daily Bookings for October',
+                        data: dailyBookings,
+                        backgroundColor: 'rgba(52, 152, 219, 0.5)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+
+        // Fetch booking data on page load
+        window.onload = fetchBookingData;
+
+        // Event Creation Logic
+        function createEvent(event) {
+            event.preventDefault();
+            const eventName = document.getElementById('eventName').value;
+            const eventDate = document.getElementById('eventDate').value;
+            const eventTime = document.getElementById('eventTime').value;
+            const eventLocation = document.getElementById('eventLocation').value;
+
+            // Add logic to create the event in the backend
+
+            // Reset the form after submission
+            document.getElementById('createEventForm').reset();
+            alert('Event Created Successfully!');
+        }
+
+        // Delete Event Logic
+        function deleteEvent(button) {
+            const row = button.closest('tr');
+            row.parentNode.removeChild(row);
+            alert('Event Cancelled!');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch bookings data from localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+            // Fetch events data from localStorage
+            const events = JSON.parse(localStorage.getItem('events')) || [];
+
+            // Get today's date
+            const today = new Date().toISOString().split('T')[0];
+
+            // Filter today's bookings
+            const todayBookings = bookings.filter(booking => booking.date === today);
+            const totalBookingsToday = todayBookings.length;
+
+            // Count turf and court bookings
+            const turfBookingsToday = todayBookings.filter(booking => 
+                booking.turfType.toLowerCase() === 'football' || booking.turfType.toLowerCase() === 'cricket'
+            ).length;
+            const courtBookingsToday = todayBookings.filter(booking => 
+                booking.turfType.toLowerCase() === 'basketball' || 
+                booking.turfType.toLowerCase() === 'badminton' || 
+                booking.turfType.toLowerCase() === 'tennis'
+            ).length;
+
+            // Get the total number of events registered
+            const totalEventsRegistered = events.length;
+
+            // Update the stat cards on the dashboard
+            document.querySelector('.stat-card:nth-child(1) h3').textContent = totalBookingsToday;
+            document.querySelector('.stat-card:nth-child(2) h3').textContent = turfBookingsToday;
+            document.querySelector('.stat-card:nth-child(3) h3').textContent = courtBookingsToday;
+            document.querySelector('.stat-card:nth-child(4) h3').textContent = totalEventsRegistered;
+        });
+
+
+   // Function to handle event creation
+function createEvent(event) {
+    event.preventDefault(); // Prevent form submission and page refresh
+
+    // Capture event details from the form fields
+    const eventName = document.getElementById('eventName').value;
+    const eventDate = document.getElementById('eventDate').value;
+    const eventTimeFrom = document.getElementById('eventTimeFrom').value;
+    const eventTimeTo = document.getElementById('eventTimeTo').value;
+    const eventLocation = document.getElementById('eventLocation').value;
+
+    // Check if any field is empty (just in case the 'required' attribute fails)
+    if (!eventName || !eventDate || !eventTimeFrom || !eventTimeTo || !eventLocation) {
+        alert("Please fill in all the required fields.");
+        return;
+    }
+
+    // Generate a unique event ID
+    const eventId = 'E' + Math.floor(Math.random() * 1000);
+
+    // Create the event object
+    const newEvent = {
+        eventId: eventId,
+        eventName: eventName,
+        eventDate: eventDate,
+        eventTimeFrom: eventTimeFrom,
+        eventTimeTo: eventTimeTo,
+        eventLocation: eventLocation,
+        status: 'Scheduled'
+    };
+
+    // Get existing events from localStorage or initialize an empty array
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+
+    // Add the new event to the array
+    events.push(newEvent);
+
+    // Store the updated events array in localStorage
+    localStorage.setItem('events', JSON.stringify(events));
+
+    // Add the event to the table dynamically
+    appendEventToTable(newEvent);
+
+    // Clear the form after submission
+    document.getElementById('createEventForm').reset();
+}
+
+// Function to append an event to the table
+function appendEventToTable(event) {
+    const newRow = `
+        <tr>
+            <td>#${event.eventId}</td>
+            <td>${event.eventName}</td>
+            <td>${event.eventDate}</td>
+            <td>${event.eventTimeFrom} - ${event.eventTimeTo}</td>
+            <td>${event.eventLocation}</td>
+            <td>${event.status}</td>
+            <td>
+                <button class="action-btn" onclick="deleteEvent(this)">Cancel</button>
+            </td>
+        </tr>
+    `;
+    document.getElementById('eventTableBody').insertAdjacentHTML('beforeend', newRow);
+}
+
+// Load events from localStorage when the page loads
+document.addEventListener('DOMContentLoaded', function () {
+    const events = JSON.parse(localStorage.getItem('events')) || [];
+    events.forEach(event => {
+        appendEventToTable(event);
+    });
+});
+
+// Function to delete an event (remove the row and update localStorage)
+function deleteEvent(button) {
+    const row = button.closest('tr');
+    const eventId = row.querySelector('td').textContent.replace('#', '');
+
+    // Remove the event from localStorage
+    let events = JSON.parse(localStorage.getItem('events')) || [];
+    events = events.filter(event => event.eventId !== eventId);
+    localStorage.setItem('events', JSON.stringify(events));
+
+    // Remove the row from the table
+    row.remove();
+}
+
+
+    </script>
+
+</body>
+
+</html>

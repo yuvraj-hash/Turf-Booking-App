@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings</title>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Custom Styling -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar Customization */
+        .navbar-custom {
+            background-color: #2c3e50;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .navbar-custom .nav-link {
+            color: #fff;
+            font-size: 16px;
+            margin: 0 10px; /* Add some margin between links */
+        }
+
+        .navbar-custom .nav-link:hover {
+            background-color: #000; /* Change hover background to black */
+            color: #fff; /* Ensure text color remains white */
+            border-radius: 5px; /* Add rounded corners to hover effect */
+        }
+
+        /* Specific hover effect removal for the active link */
+        .navbar-custom .nav-item.active .nav-link:hover {
+            background-color: transparent; /* Remove hover background */
+            color: #fff; /* Ensure text color remains white */
+        }
+
+        .navbar-custom .active {
+            background-color: #ff7043;
+            border-radius: 5px; /* Add rounded corners to active item */
+        }
+
+        /* Log Out Button Styling */
+        .logout-btn {
+            background-color: #ff3333;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .logout-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px; /* Reduced padding for smaller container */
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto; /* Reduced margin */
+            max-width: 900px; /* Reduced max width */
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px; /* Reduced margin */
+        }
+
+        .search-bar {
+            margin-bottom: 15px; /* Reduced margin */
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #999;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th {
+            background-color: #2980b9;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f0f8ff;
+        }
+
+        .go-back-btn {
+            margin: 20px auto;
+            display: block;
+            width: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-custom">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="Dashboard.html">Dashboard</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Bookings</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="store_events.html">Events</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="revstore.html">Reviews</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="message_store.html">Contact Us</a>
+                    </li>
+                </ul>
+                <!-- Log Out Button placed on the right side -->
+                <button class="logout-btn" onclick="logout()">Log Out</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Booking Container -->
+    <div class="container">
+        <h2>Today's Bookings</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Turf Type</th>
+                    <th>Time Slot</th>
+                </tr>
+            </thead>
+            <tbody id="today-bookings"></tbody>
+        </table>
+
+        <h2>All Time Bookings</h2>
+        <div class="form-group search-bar">
+            <input type="text" id="search-input" class="form-control" placeholder="Search by name, location, turf, time slot...">
+        </div>
+        <div class="form-group">
+            <input type="date" id="search-date" class="form-control" placeholder="Select date to search">
+        </div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Phone</th>
+                    <th>Location</th>
+                    <th>Turf Type</th>
+                    <th>Time Slot</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody id="all-time-bookings"></tbody>
+        </table>
+
+        <!-- Go Back Button -->
+        <a href="dashboard.html" class="btn btn-secondary go-back-btn">Go Back</a>
+    </div>
+
+    <!-- Optional Footer -->
+    <div class="footer">
+        <p>Made with ♥ by Arena Hub</p>
+    </div>
+
+    <!-- JS for Bootstrap and localStorage -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        function logout() {
+            // Redirect to the login page
+            window.location.href = 'dashboard_login.html';
+
+            // Disable back navigation
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.go(1);
+            };
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const todayBookingsContainer = document.getElementById('today-bookings');
+            const allTimeBookingsContainer = document.getElementById('all-time-bookings');
+            const searchInput = document.getElementById('search-input');
+            const searchDateInput = document.getElementById('search-date');
+
+            // Fetch bookings from localStorage
+            const bookings = JSON.parse(localStorage.getItem('bookings')) || [];
+
+            // Function to display today's bookings
+            function displayTodayBookings() {
+                const today = new Date().toISOString().split('T')[0];
+                const todayBookings = bookings.filter(booking => booking.date === today);
+
+                todayBookings.forEach(booking => {
+                    const bookingRow = document.createElement('tr');
+                    bookingRow.innerHTML = `
+                        <td>${booking.name}</td>
+                        <td>${booking.phone}</td>
+                        <td>${booking.location}</td>
+                        <td>${booking.turfType}</td>
+                        <td>${booking.timeSlot}</td>
+                    `;
+                    todayBookingsContainer.appendChild(bookingRow);
+                });
+            }
+
+            // Function to display all bookings
+            function displayAllBookings() {
+                allTimeBookingsContainer.innerHTML = '';
+                bookings.forEach(booking => {
+                    const bookingRow = document.createElement('tr');
+                    bookingRow.innerHTML = `
+                        <td>${booking.name}</td>
+                        <td>${booking.phone}</td>
+                        <td>${booking.location}</td>
+                        <td>${booking.turfType}</td>
+                        <td>${booking.timeSlot}</td>
+                        <td>${booking.date}</td>
+                    `;
+                    allTimeBookingsContainer.appendChild(bookingRow);
+                });
+            }
+
+            // Function to filter bookings by input
+            function filterBookings() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const selectedDate = searchDateInput.value;
+                allTimeBookingsContainer.innerHTML = '';
+
+                bookings.filter(booking => {
+                    const matchesDate = selectedDate ? booking.date === selectedDate : true;
+                    const matchesSearchTerm = booking.name.toLowerCase().includes(searchTerm) ||
+                        booking.location.toLowerCase().includes(searchTerm) ||
+                        booking.turfType.toLowerCase().includes(searchTerm) ||
+                        booking.timeSlot.toLowerCase().includes(searchTerm);
+
+                    return matchesDate && matchesSearchTerm;
+                }).forEach(booking => {
+                    const bookingRow = document.createElement('tr');
+                    bookingRow.innerHTML = `
+                        <td>${booking.name}</td>
+                        <td>${booking.phone}</td>
+                        <td>${booking.location}</td>
+                        <td>${booking.turfType}</td>
+                        <td>${booking.timeSlot}</td>
+                        <td>${booking.date}</td>
+                    `;
+                    allTimeBookingsContainer.appendChild(bookingRow);
+                });
+            }
+
+            // Event listeners for search
+            searchInput.addEventListener('input', filterBookings);
+            searchDateInput.addEventListener('change', filterBookings);
+
+            // Initial display
+            displayTodayBookings();
+            displayAllBookings();
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #007bff, #e9ecef, #ff7f50);
+            background-size: 300% 300%;
+            animation: gradientBG 8s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .login-container {
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: scale(1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #343a40;
+            font-size: 28px;
+            letter-spacing: 1px;
+        }
+
+        .login-container label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 16px;
+            color: #495057;
+            text-align: left;
+        }
+
+        .login-container input {
+            width: calc(100% - 40px);
+            padding: 14px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ced4da;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s ease;
+        }
+
+        .login-container input:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+        }
+
+        .login-container button {
+            width: calc(100% - 40px);
+            padding: 14px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-bottom: 15px;
+            transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
+        }
+
+        .login-container button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.4);
+        }
+
+        .login-container button:active {
+            transform: scale(0.98);
+        }
+
+        .go-back {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #f8f9fa;
+            color: #007bff;
+            border: 1px solid #007bff;
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s;
+        }
+
+        .go-back:hover {
+            background-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .eye-icon {
+            position: absolute;
+            right: 20px;
+            top: 18%;
+            transform: translateX(-20%);
+            font-size: 20px;
+            color: #007bff;
+            cursor: pointer;
+            transition: color 1.5s, transform 3.0s;
+        }
+
+        .eye-icon:hover {
+            color: #0056b3;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+
+ 
+
+<div class="login-container">
+    <h2>Admin Login</h2>
+    <form id="login-form" onsubmit="return false;">
+        <label for="admin-name">Admin Name:</label>
+        <input type="text" id="admin-name" required>
+
+        <label for="admin-password">Password:</label>
+        <div class="password-container">
+            <input type="password" id="admin-password" required>
+            <span class="eye-icon" onclick="togglePasswordVisibility()">👁️</span>
+        </div>
+
+        <button type="button" onclick="authenticateAdmin()">Authenticate</button>
+        <a class="go-back" href="search-turf.html">Go Back</a>
+    </form>
+</div>
+
+<script>
+    function authenticateAdmin() {
+        const adminName = document.getElementById('admin-name').value;
+        const adminPassword = document.getElementById('admin-password').value;
+
+        const validAdmin = 'yuvraj';
+        const validPassword = 'Mushroom17';
+
+        if (adminName === validAdmin && adminPassword === validPassword) {
+            localStorage.setItem('adminLoggedIn', 'true');
+            window.location.href = 'Dashboard.html';
+        } else {
+            alert('Invalid Credentials, Please try again...');
+            document.getElementById('admin-name').value = '';
+            document.getElementById('admin-password').value = '';
+        }
+    }
+
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('admin-password');
+        const eyeIcon = document.querySelector('.eye-icon');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.textContent = '🙈'; // Closed eye
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.textContent = '👁️'; // Open eye
+        }
+    }
+</script>
+
+</body>
+</html>

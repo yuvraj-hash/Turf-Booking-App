@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="turfBookingApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Us - Arena Hub</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa; /* Light gray background */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar customization */
+        .navbar-custom {
+            background-color: #34495e; /* Dark blue */
+            border: none;
+            padding: 15px;
+            border-bottom: 5px solid #ff7043; /* Coral bottom border */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar-custom .navbar-brand {
+            color: #fff;
+            font-size: 28px;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-custom .navbar-brand:hover {
+            transform: scale(1.1);
+        }
+
+        .navbar-custom .navbar-nav > li > a {
+            color: #fff; /* White color for navbar links */
+            font-size: 16px;
+        }
+
+        .navbar-custom .navbar-nav > li > a:hover {
+            background-color: #004d40; /* Teal on hover */
+            color: #fff;
+        }
+
+        /* Highlight the active button */
+        .navbar-custom .navbar-nav > .active > a {
+            background-color: #ff7043; /* Coral for active button */
+            color: #000; /* Black text for active button */
+        }
+
+        .jumbotron {
+            background-color: #fffae6; /* Light yellow background */
+            color: #333;
+            padding: 40px 20px;
+            text-align: center;
+            margin: 0;
+            animation: fadeIn 1s ease; /* Add fade-in animation */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .jumbotron h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+        }
+
+        .jumbotron p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .container {
+            padding: 30px;
+            background-color: #ffffff; /* White background */
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            max-width: 700px; /* Container size */
+            margin: 20px auto;
+            transition: transform 0.3s ease; /* Add transition */
+        }
+
+        .container:hover {
+            transform: scale(1.01); /* Slight scale on hover */
+        }
+
+        .container h2 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+
+        .container h2:hover {
+            color: #ff7043; /* Change color on hover */
+        }
+
+        /* Contact Form Styling */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .contact-form input[type="text"],
+        .contact-form input[type="email"],
+        .contact-form textarea {
+            width: 80%; /* Increased input width for better usability */
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-form input[type="text"]:focus,
+        .contact-form input[type="email"]:focus,
+        .contact-form textarea:focus {
+            border-color: #ff7043; /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(255, 112, 67, 0.5);
+        }
+
+        .contact-form textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        .btn-submit {
+            background-color: #2ecc71; /* Teal */
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease, transform 0.2s ease; /* Transition for button */
+        }
+
+        .btn-submit:hover {
+            background-color: #27ae60; /* Darker teal on hover */
+            transform: scale(1.05); /* Scale effect on hover */
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-body {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .modal-footer button {
+            margin-right: 10px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #34495e; /* Dark blue */
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer .social-icons {
+            list-style: none;
+            padding: 0;
+        }
+
+        footer .social-icons li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        footer .social-icons a {
+            color: white;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        footer .social-icons a i {
+            margin-right: 8px;
+        }
+
+        footer p {
+            margin: 10px 0 0;
+            font-size: 14px;
+        }
+
+        footer .contact-info {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-custom">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Arena Hub</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="Aboutt2.html">About Us</a></li>
+            <li><a href="Samp_Booking.html">Book Turf/Court</a></li>
+            <li><a href="search-turf.html">Search Turf/Court</a></li>
+            <li><a href="Events2.html">Events & Tournaments</a></li>
+            <li><a href="review.html">Reviews & Ratings</a></li>
+            <li class="active"><a href="contact.html">Contact Us</a></li>
+            <li><a href="dashboard_login.html">Admin Dashboard</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="jumbotron">
+    <h1>Contact Us</h1>
+    <p>
+        Arena Hub is your go-to destination for premium sports turf bookings. Whether you're planning a friendly game 
+        or a serious match, our facilities cater to all your needs. Book your slot now and enjoy a world-class experience!
+    </p>
+    <p>We would love to hear from you! Feel free to reach out to us for any queries or concerns.</p>
+</div>
+
+<div class="container">
+    <h2>Get In Touch</h2>
+    <p>If you have any queries, suggestions, or concerns, feel free to contact us using the form below. We value your feedback and will get back to you as soon as possible.</p>
+
+    <form class="contact-form" id="contactForm">
+        <input type="text" name="userName" id="userName" placeholder="Your Name" required />
+        <input type="email" name="userEmail" id="userEmail" placeholder="Your Email" required />
+        <textarea name="userMessage" id="userMessage" placeholder="Your Message" required></textarea>
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</div>
+
+<!-- Modal for Confirmation -->
+<div class="modal fade" id="messageModal" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel">Your Message Submitted Successfully!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Thank you for reaching out to us. We will get back to you shortly!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <ul class="social-icons">
+        <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+        <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+        <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+        <li><a href="#"><i class="fa fa-youtube"></i></a></li>
+    </ul>
+    <p>&copy; 2024 Arena Hub. All Rights Reserved.</p>
+    <div class="contact-info">
+        <p>Email: support@arenahub.com | Phone: 9882345802</p>
+    </div>
+</footer>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $('#contactForm').on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+            
+            // Retrieve input values
+            const userName = $('#userName').val();
+            const userEmail = $('#userEmail').val();
+            const userMessage = $('#userMessage').val();
+            
+            // Create a message object
+            const message = {
+                name: userName,
+                email: userEmail,
+                message: userMessage
+            };
+            
+            // Get existing messages from local storage
+            const messages = JSON.parse(localStorage.getItem('messages')) || [];
+            
+            // Add the new message to the array
+            messages.push(message);
+            
+            // Save the updated array back to local storage
+            localStorage.setItem('messages', JSON.stringify(messages));
+            
+            $('#messageModal').modal('show'); // Show confirmation modal
+            $('#contactForm')[0].reset(); // Reset the form
+        });
+    });
+</script>
+
+</body>
+</html>
