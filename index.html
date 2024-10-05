@@ -2,6 +2,7 @@
 <html lang="en" ng-app="turfBookingApp">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Added viewport meta tag for responsiveness -->
     <title>Online Turf Booking</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <style>
@@ -12,7 +13,7 @@
             padding: 0;
         }
 
-         /* Navbar customization */
+        /* Navbar customization */
         .navbar-custom {
             background-color: #2c3e50;
             border: none;
@@ -32,8 +33,7 @@
             transform: scale(1.1);
         }
 
-
-     .navbar-custom .navbar-nav > li > a {
+        .navbar-custom .navbar-nav > li > a {
             color: #fff; /* White color for navbar links */
             font-size: 16px;
         }
@@ -124,11 +124,24 @@
             background-color: #0056b3;
         }
 
-             .footer {
+        .footer {
             text-align: center;
             margin-top: 20px;
             font-size: 14px;
             color: #999;
+        }
+
+        @media (max-width: 768px) {
+            .jumbotron h1 {
+                font-size: 28px; /* Decreased font size for smaller screens */
+            }
+            .jumbotron p,
+            .container p {
+                font-size: 14px; /* Decreased font size for smaller screens */
+            }
+            .container h2 {
+                font-size: 24px; /* Decreased font size for smaller screens */
+            }
         }
     </style>
 </head>
@@ -175,9 +188,9 @@
     <a href="Samp_Booking.html" class="btn">Book Turf</a>
 </div>
 
-  <div class="footer">
-        <p>Made with ♥ by Arena Hub</p>
-    </div>
+<div class="footer">
+    <p>Made with ♥ by Arena Hub</p>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-route.min.js"></script>
