@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Arena Hub - Event Registration</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 450px;
+      margin: 50px auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    .container:hover {
+      transform: scale(1.02);
+    }
+
+    h1 {
+      text-align: center;
+      color: #007bff;
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    .company-name {
+      text-align: center;
+      font-size: 28px;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .tagline {
+      text-align: center;
+      color: #777;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+
+    form {
+      margin-top: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      color: #333;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ced4da;
+      border-radius: 5px;
+      box-sizing: border-box;
+      transition: border-color 0.3s;
+      font-size: 14px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+      font-style: italic;
+    }
+
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="number"]:focus,
+    select:focus {
+      border-color: #007bff;
+      outline: none;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: #ffffff;
+      cursor: pointer;
+      border: none;
+      font-size: 16px;
+      padding: 12px;
+      transition: background-color 0.3s, transform 0.2s;
+      width: 70%;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    .go-back {
+      display: inline-block;
+      margin-left: 20px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s, transform 0.2s;
+      vertical-align: top;
+      cursor: pointer;
+    }
+
+    .go-back:hover {
+      background-color: #218838;
+      transform: translateY(-2px);
+    }
+
+    .invalid-feedback {
+      color: red;
+      font-size: 12px;
+      display: none;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="company-name">Arena Hub</div>
+    <div class="tagline">Your Premier Sports Experience</div>
+    <h1>Event Registration</h1>
+    <form id="registrationForm" onsubmit="return submitForm(event)">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required pattern="[A-Za-z\s]+">
+        <div class="invalid-feedback">Please enter a valid name</div>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+        <div class="invalid-feedback">Please enter a valid email address</div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" pattern="[0-9]{10}">
+        <div class="invalid-feedback">Please enter a valid 10-digit phone number</div>
+      </div>
+      <div class="form-group">
+        <label for="seats">Number of Seats:</label>
+        <input type="number" id="seats" name="seats" placeholder="Enter number of seats" min="1" max="55" required>
+        <div class="invalid-feedback">Please enter a valid number of seats (1-55)</div>
+      </div>
+      <div class="form-group">
+        <label for="sport">Select Sport:</label>
+        <select id="sport" name="sport" required>
+          <option value="">Select a sport</option>
+          <option value="Cricket">Cricket</option>
+          <option value="Football">Football</option>
+          <option value="Basketball">Basketball</option>
+          <option value="Badminton">Badminton</option>
+          <option value="Tennis">Tennis</option>
+        </select>
+        <div class="invalid-feedback">Please select a sport</div>
+      </div>
+      <div class="button-container">
+        <input type="submit" value="Register">
+        <a href="Events2.html" class="go-back">Go Back</a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
+
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const seats = document.getElementById("seats").value;
+      const sport = document.getElementById("sport").value;
+
+      // Check if tennis or badminton is selected
+      if (sport === "Badminton" || sport === "Tennis") {
+        alert("The selected sport is not applicable.");
+        return; // Exit if sport is not applicable
+      }
+
+      // Basic validation
+      if (!validateForm()) {
+        return false;
+      }
+
+      // Show first alert
+      alert("You will have to pay Rs. 100 on-spot.");
+      
+      // After the first alert, show the second alert for successful registration
+      alert("Registration successful!");
+
+      // Get the existing events from localStorage or create a new array
+      let events = JSON.parse(localStorage.getItem('events')) || [];
+
+      // Add the new event
+      events.push({ name, email, phone, seats, sport });
+
+      // Store the updated events array in localStorage
+      localStorage.setItem('events', JSON.stringify(events));
+
+      // Clear the input fields after submission
+      document.getElementById("registrationForm").reset();
+    }
+
+    function validateForm() {
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const phone = document.getElementById("phone").value;
+      const seats = document.getElementById("seats").value;
+      const sport = document.getElementById("sport").value;
+
+      document.querySelectorAll('.invalid-feedback').forEach(el => el.style.display = 'none');
+      let isValid = true;
+
+      if (!name.match(/[A-Za-z\s]+/)) {
+        document.querySelector('#name + .invalid-feedback').style.display = 'block';
+        isValid = false;
+      }
+
+      if (!email.match(/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/)) {
+        document.querySelector('#email + .invalid-feedback').style.display = 'block';
+        isValid = false;
+      }
+
+      if (phone && !phone.match(/^[0-9]{10}$/)) {
+        document.querySelector('#phone + .invalid-feedback').style.display = 'block';
+        isValid = false;
+      }
+
+      if (seats < 1 || seats > 55) {
+        document.querySelector('#seats + .invalid-feedback').style.display = 'block';
+        isValid = false;
+      }
+
+      if (!sport) {
+        document.querySelector('#sport + .invalid-feedback').style.display = 'block';
+        isValid = false;
+      }
+
+      return isValid;
+    }
+  </script>
+</body>
+</html>
